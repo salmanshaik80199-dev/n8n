@@ -1,8 +1,10 @@
-# Use official n8n base image
-FROM n8nio/n8n:latest
+# Use Debian-based n8n image
+FROM n8nio/n8n:latest-debian
+
+# Switch to root to install packages
+USER root
 
 # Install Python and FFmpeg
-USER root
 RUN apt-get update && \
     apt-get install -y python3 python3-pip ffmpeg && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -13,5 +15,5 @@ USER node
 # Expose n8n port
 EXPOSE 5678
 
-# Run n8n
+# Start n8n
 CMD ["n8n"]
